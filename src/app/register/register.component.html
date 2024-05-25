@@ -1,1 +1,203 @@
-<p>register works!</p>
+<!--<div class="d-flex align-items-center justify-content-center">-->
+<!--  <div class="col-sm-3 text-center">-->
+<!--    <form [formGroup]="signupForm!" (ngSubmit)="onSubmit()">-->
+
+<!--      <label>IIN</label>-->
+<!--      <input type="text" formControlName="iin" class="form-control"/>-->
+<!--      <div class="form-group">-->
+<!--        <label>Password</label>-->
+<!--        <input type="password" formControlName="password" class="form-control"  />-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <a class="button" routerLink="/login">Already have an account? Login!</a>-->
+<!--      </div>-->
+<!--      <button mat-raised-button class="bg-dark text-white" [disabled]="loading">-->
+<!--        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>-->
+<!--        Sign Up-->
+<!--      </button>-->
+<!--      <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--</div>-->
+
+<router-outlet></router-outlet>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Авторизация - BALABAQSHA</title>
+  <style>
+    body {
+      display: flex;
+      height: 100vh;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    .left-panel {
+      background: #e0f7fa;
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    .right-panel {
+      background: #1c2833;
+      color: white;
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+    .login-form {
+      max-width: 400px;
+      width: 100%;
+    }
+    .login-form h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+    .login-form input[type="text"],
+    .login-form input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .login-form button {
+      width: 100%;
+      padding: 10px;
+      background: #4CAF50;
+      border: none;
+      color: white;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .login-form button:hover {
+      background: #45a049;
+    }
+    .login-form .remember {
+      display: flex;
+      align-items: center;
+    }
+    .login-form .remember input {
+      margin-right: 10px;
+    }
+    .login-form .links {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .square-text {
+      width: 500px;
+      height: 300px;
+      box-sizing: border-box;
+      background-color: #1c2833;
+      color: #d1d5db;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: justify;
+    }
+    .header-image {
+      width: 100px;
+      height: 100px;
+      background: url('assets/logo-main.svg') no-repeat center center;
+      border-radius: 33px;
+      background-size: contain;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="left-panel" style="background-image: url('assets/banner.png'); background-size: cover; background-position: center;">
+  <div class="header-image w-12 flex items-center"></div>
+  <p class="logo-title ml-2" style="font-family: 'Trebuchet MS', 'sans-serif'">BALABAQSHA</p><!-- Place for the image -->
+  <h1 style="font-weight: bold">АВТОРИЗАЦИЯ</h1>
+  <form [formGroup]="signupForm!" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>ИИН</label>
+      <input type="text" formControlName="iin" class="form-control" required/>
+    </div>
+    <div class="form-group">
+      <label>ФАМИЛИЯ</label>
+      <input type="text" formControlName="surname" class="form-control" required/>
+    </div>
+    <div class="form-group">
+      <label>ИМЯ</label>
+      <input type="text" formControlName="name" class="form-control" required/>
+    </div>
+    <div class="form-group">
+      <label>ОТЧЕСТВО</label>
+      <input type="text" formControlName="f_name" class="form-control" required/>
+    </div>
+    <div class="form-group">
+      <label>ДАТА РОЖДЕНИЯ</label>
+      <input type="date" formControlName="dateOfBirth" class="form-control" required/>
+    </div>
+    <div class="form-group">
+      <label>ГРАЖДАНСТВО</label>
+      <input type="text" formControlName="iin" class="form-control" [placeholder]="'KAZAKHSTAN'" readonly/>
+    </div>
+    <div class="form-group">
+      <label>ГОРОД</label>
+      <select class="form-control" formControlName="cityId" required>
+        <option *ngFor="let c of cityAll" [value]="c.id">{{c.name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>ПОЛ</label>
+      <select class="form-control" formControlName="gender" required>
+        <option>MALE</option>
+        <option>FEMALE</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>НОМЕР ТЕЛЕФОНА</label>
+      <input type="text" formControlName="phoneNumber" class="form-control"/>
+    </div>
+    <div class="form-group">
+      <label>ПАРОЛЬ</label>
+      <input type="password" formControlName="password" class="form-control" required/>
+    </div>
+    <div class="form-group">
+      <label>ПОВТОРИТЕ ПАРОЛЬ</label>
+      <input type="password" formControlName="repeat_password" class="form-control" required/>
+      <div *ngIf="signupForm.errors?.passwordMismatch" class="alert alert-danger mt-2">
+        Пароли не совпадают
+      </div>
+    </div>
+      <div class="mb-3">
+        У вас уже есть аккаунт?
+        <a class="button" routerLink="/login"> Авторизоваться!</a>
+      </div>
+    <div class="inline-flex items-end justify-between w-full mt-1.5 space-x-2">
+      <button mat-raised-button class="w-3 mt-10 rounded button-bg-color-light" [color]="'primary'" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        Зарегистрироваться
+      </button>
+    </div>
+    <div *ngIf="error" class="alert alert-danger mt-3 mb-0">{{error}}</div>
+  </form>
+</div>
+<div class="right-panel">
+  <div class="z-10 relative w-full max-w-2xl">
+    <div class="text-7xl font-bold leading-none text-gray-100">
+      <h2 style="margin-bottom: 50px; font-weight: bold">АВТОРИЗАЦИЯ</h2>
+    </div>
+    <hr style="width: 31rem">
+    <div class="square-text">
+      <p style="font-size: larger">
+        Мы ваш надежный партнер в создании оптимальной системы направления детей дошкольного возраста (6 лет) в соответствующие образовательные учреждения. Наша миссия – обеспечить доступность и эффективность образовательных услуг для каждого ребенка, начиная с самого раннего возраста.
+      </p>
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+<router-outlet></router-outlet>

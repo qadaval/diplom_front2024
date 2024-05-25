@@ -1,8 +1,135 @@
-<div class="container-fluid page">
-  <div class="d-flex page__box p-3 mt-2">Home</div>
-  <div class="page__content shadow p-3 position-relative">
-    <div class="page__content-data position-absolute text-center">
-      Home Content Goes Here
+<mat-drawer-container>
+  <mat-drawer mode="side" [opened]="sideBarOpen">
+    <app-sidenav></app-sidenav>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
+    <div class="container-fluid page">
+      <div class="d-flex page__box p-3 mt-2">Профиль</div>
+      <div class="page__content shadow p-3 position-relative">
+
+        <!DOCTYPE html>
+        <html lang="ru">
+        <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Балабақша - Мои данные</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              /*background-color: #f0f8ff;*/
+              margin: 0;
+            }
+            /*.header, .footer {*/
+            /*  background-color: #005f73;*/
+            /*  color: white;*/
+            /*  padding: 10px 0;*/
+            /*  text-align: center;*/
+            /*}*/
+            /*.nav {*/
+            /*  background-color: #94d2bd;*/
+            /*  overflow: hidden;*/
+            /*}*/
+            .nav a {
+              float: left;
+              display: block;
+              color: #005f73;
+              text-align: center;
+              padding: 14px 16px;
+              text-decoration: none;
+            }
+            .nav a:hover {
+              background-color: #61a5c2;
+              color: white;
+            }
+            .profile {
+              display: flex;
+              padding: 20px;
+            }
+            .profile .sidebar {
+              width: 250px;
+              background-color: #e0fbfc;
+              padding: 10px;
+              box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+            }
+            .profile .sidebar img {
+              width: 100%;
+              border-radius: 50%;
+            }
+            .profile .main {
+              flex: 1;
+              padding: 20px;
+              background-color: white;
+              box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+              margin-left: 20px;
+            }
+            .profile .main h2 {
+              margin-top: 0;
+            }
+            .info-item {
+              margin-bottom: 10px;
+            }
+          </style>
+        </head>
+        <body>
+<!--        <div class="header">-->
+<!--          <h1>BALABAQSHA</h1>-->
+<!--        </div>-->
+<!--        <div class="nav">-->
+<!--          <a href="#">Мои данные</a>-->
+<!--          <a href="#">Список детских садов</a>-->
+<!--          <a href="#">Модули и услуги</a>-->
+<!--          <a href="#">Центр помощи</a>-->
+<!--        </div>-->
+        <div class="profile">
+          <div class="sidebar">
+            <img src="assets/user.jpg" alt="User Image">
+            <h3>{{ parentCurrent?.surname }} {{ parentCurrent?.name }} {{ parentCurrent?.f_name }}</h3>
+<!--            <p>Удостоверение личности</p>-->
+<!--            <p>Адресные сведения</p>-->
+<!--            <nav>-->
+<!--              <a href="#">Об о мне</a>-->
+<!--              <a href="#">Образование</a>-->
+<!--              <a href="#">Здравоохранение</a>-->
+<!--              <a href="#">Опыт работы</a>-->
+<!--              <a href="#">Награды</a>-->
+<!--              <a href="#">Наставничество</a>-->
+<!--            </nav>-->
+          </div>
+          <div class="main">
+            <h2>Мои данные</h2>
+            <hr>
+            <div class="info-item"><strong>Местонахождение:</strong> {{city?.name}} </div>
+            <div class="info-item"><strong>ИИН:</strong> {{ parentCurrent?.iin }}</div>
+            <div class="info-item"><strong>Дата рождения:</strong> {{ parentCurrent?.dateOfBirth | date: 'dd.MM.yyyy' }}</div>
+            <div class="info-item"><strong>Гражданство:</strong> {{ parentCurrent?.citizenship }}</div>
+            <div class="info-item"><strong>Пол:</strong> {{ parentCurrent?.gender }}</div>
+<!--            <div class="info-item"><strong>Электронная почта:</strong> 123@mail.ru</div>-->
+            <div class="info-item"><strong>Телефон:</strong> {{ parentCurrent?.phoneNumber }}</div>
+
+            <h3>Мои дети</h3>
+            <hr>
+            <div class="info-item"><strong>Наименование организации:</strong> Коммунальное государственное учреждение "Общеобразовательная школа № 11" отдела образования города Шахтинск управления образования Карагандинской области</div>
+            <div class="info-item"><strong>Должность:</strong> учитель начальных классов</div>
+            <div class="info-item"><strong>Срок трудового договора:</strong> неопределенный</div>
+            <div class="info-item"><strong>Сотрудник:</strong> штатный</div>
+            <div class="info-item"><strong>Основной предмет:</strong> начальное обучение</div>
+
+            <h3>Образование</h3>
+            <hr>
+            <div class="info-item"><strong>Академическая степень:</strong> магистр</div>
+            <div class="info-item"><strong>Образование:</strong> Послевузовское образование (магистр, доктор PhD)</div>
+          </div>
+        </div>
+<!--        <div class="footer">-->
+<!--          <p>ПОСТАНОВКА В ОЧЕРЕДЬ ДЕТЕЙ</p>-->
+<!--          <p>Телефон: +7 (705) 762 66 11</p>-->
+<!--          <p>Электронная почта: balabaqsha_support@gmail.com</p>-->
+<!--        </div>-->
+        </body>
+        </html>
+      </div>
     </div>
-  </div>
-</div>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

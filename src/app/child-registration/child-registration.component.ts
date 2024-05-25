@@ -6,10 +6,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./child-registration.component.scss']
 })
 export class ChildRegistrationComponent implements OnInit {
+  sideBarOpen = true;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  // tslint:disable-next-line:typedef
+  sideBarToggler() {
+    this.sideBarOpen = !this.sideBarOpen;
+  }
 }

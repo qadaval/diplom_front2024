@@ -9,6 +9,7 @@ export class AppComponent {
   title = 'admin-panel-layout';
   sideBarOpen = true;
 
+  // tslint:disable-next-line:typedef
   sideBarToggler() {
     this.sideBarOpen = !this.sideBarOpen;
   }

@@ -1,20 +1,19 @@
 import { Injectable } from '@angular/core';
-import {environment} from "../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Daycare} from "../model/daycare";
-import {constructQueryParameters} from "../../../@fuse/components/functions/query-param.function";
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
+import {Daycare} from '../model/daycare';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DaycareService {
 
-  url = environment.baseUrl;
+  url = environment.url;
   constructor(private http: HttpClient) { }
 
-  public getAllDaycare(param: any): Observable<Daycare[]> {
-    return this.http.get<Daycare[]>(`${this.url}/daycare/all${constructQueryParameters(param)}`);
+  public getAllDaycare(): Observable<Daycare[]> {
+    return this.http.get<Daycare[]>(`${this.url}/daycare/all`);
   }
 
   public getDaycare(id: number): Observable<Daycare> {

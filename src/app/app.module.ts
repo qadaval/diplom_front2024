@@ -14,7 +14,24 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
+import {MatButtonModule} from '@angular/material/button';
+import { LoginComponent } from './login/login.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatTableModule} from '@angular/material/table';
+import {AuthInterceptor} from './auth.interceptor';
+import { AuthenticationService } from './service/auth.service';
+import { DaycareService } from './service/daycare.service';
+import { AddressService } from './service/address.service';
+import { RegisterComponent } from './register/register.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { ChildRegistrationComponent } from './child-registration/child-registration.component';
 
+// @ts-ignore
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,20 +39,38 @@ import { MatListModule } from '@angular/material/list';
     HomeComponent,
     DashboardComponent,
     SidenavComponent,
+    LoginComponent,
+    RegisterComponent,
+    ChildRegistrationComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    // * MATERIAL IMPORTS
-    MatSidenavModule,
-    MatToolbarModule,
-    MatMenuModule,
-    MatIconModule,
-    MatDividerModule,
-    MatListModule,
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        // * MATERIAL IMPORTS
+        MatSidenavModule,
+        MatToolbarModule,
+        MatMenuModule,
+        MatIconModule,
+        MatDividerModule,
+        MatListModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatCheckboxModule,
+        HttpClientModule,
+        MatPaginatorModule,
+        MatProgressSpinnerModule,
+        MatTableModule,
+        FormsModule,
+        MatDatepickerModule
+    ],
+  providers: [
+    AuthenticationService,
+    DaycareService,
+    AddressService,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

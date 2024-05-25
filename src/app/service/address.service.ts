@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Address} from "../model/address";
-import {environment} from "../../../environments/environment";
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
+import {Address} from '../model/address';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AddressService {
-  url = environment.baseUrl;
+  url = environment.url;
   constructor(private http: HttpClient) { }
 
   public getAllAddress(): Observable<Address[]> {
