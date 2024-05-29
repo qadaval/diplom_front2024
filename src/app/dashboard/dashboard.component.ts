@@ -12,6 +12,7 @@ import {AuthenticationService} from '../service/auth.service';
 import {Parent} from '../model/parent';
 import {Router} from '@angular/router';
 import {ParentService} from '../service/parent.service';
+import {forkJoin} from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -51,20 +52,44 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   ngAfterViewInit(): void {
     // this.cdr.detectChanges();
+    this.cdr.markForCheck();
     this.dataSource.paginator = this.paginator;
     }
   ngOnInit(): void {
     if (this.currentUser.iin) {
-    this.getParentByIin(this.currentUser.iin);
+      forkJoin({
+        parent: this.parentService.getByUsername(this.currentUser.iin),
+        addresses: this.addressService.getAllAddress(),
+        cities: this.cityService.getAllCity()
+      }).subscribe(
+        ({ parent, addresses, cities }) => {
+          this.parentCurrent = parent;
+          this.cityAll = cities;
+          addresses.forEach(address => {
+            this.addressMap[address.id] = address;
+          });
+          this.getAllDaycare();
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.message);
+        }
+      );
     }
     this.getAllDaycare();
     this.getAllCity();
     this.loadAddress();
-    this.cdr.detectChanges();
+    // this.cdr.detectChanges();
     this.cdr.markForCheck();
     this.paginator._intl.itemsPerPageLabel = 'Items per page:';
   }
-
+  public loadAddress(): void {
+    this.addressService.getAllAddress().subscribe(addressAll => {
+      addressAll.forEach(address => {
+        this.addressMap[address.id] = address;
+      });
+      console.log('AddressMap: ', this.addressMap);
+    });
+  }
   public getParentByIin(iin: string): void {
     this.parentService.getByUsername(iin).subscribe(
       (response: Parent) => {
@@ -85,20 +110,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       (response: Daycare[]) => {
         this.daycareAll = response;
         console.log('cityid: ', this.parentCurrent?.cityId);
-        const filteredDaycares = this.daycareAll.filter(daycare => this.parentCurrent?.cityId === daycare.addressId);
+        const filteredDaycares = this.daycareAll.filter(
+          daycare => this.parentCurrent?.cityId === this.addressMap[daycare.addressId]?.cityId
+        );
         this.dataSource.data = filteredDaycares;
         console.log('Datasource: ', this.dataSource.data);
       }, (error: HttpErrorResponse) => {
         console.log(error.message);
     }
     );
-  }
-  public loadAddress(): void {
-    this.addressService.getAllAddress().subscribe(addressAll => {
-      addressAll.forEach(address => {
-        this.addressMap[address.id] = address;
-      });
-    });
   }
 
   public getAllCity(): void {
