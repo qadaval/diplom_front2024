@@ -7,6 +7,7 @@ import {HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CityService} from '../service/city.service';
 import {City} from '../model/city';
+import {ChildService} from '../service/child.service';
 
 @Component({
   selector: 'app-home',

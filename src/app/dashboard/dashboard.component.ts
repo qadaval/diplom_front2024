@@ -1,4 +1,4 @@
-import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {AddressService} from '../service/address.service';
 import {DaycareService} from '../service/daycare.service';
 import {Daycare} from '../model/daycare';
@@ -39,7 +39,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     private cityService: CityService,
     private authService: AuthenticationService,
     private parentService: ParentService,
-    private router: Router
+    private router: Router,
+    private ngZone: NgZone
   ) {
     this.authService.currentUser.subscribe(user => {
       this.currentUser = user;
@@ -51,7 +52,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   ngAfterViewInit(): void {
-    // this.cdr.detectChanges();
+    this.cdr.detectChanges();
     this.cdr.markForCheck();
     this.dataSource.paginator = this.paginator;
     }
@@ -63,12 +64,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         cities: this.cityService.getAllCity()
       }).subscribe(
         ({ parent, addresses, cities }) => {
-          this.parentCurrent = parent;
-          this.cityAll = cities;
-          addresses.forEach(address => {
-            this.addressMap[address.id] = address;
+          this.ngZone.run(() => {
+            this.parentCurrent = parent;
+            this.cityAll = cities;
+            addresses.forEach(address => {
+              this.addressMap[address.id] = address;
+            });
+            this.getAllDaycare();
           });
-          this.getAllDaycare();
         },
         (error: HttpErrorResponse) => {
           console.log(error.message);
@@ -78,7 +81,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.getAllDaycare();
     this.getAllCity();
     this.loadAddress();
-    // this.cdr.detectChanges();
+    this.cdr.detectChanges();
     this.cdr.markForCheck();
     this.paginator._intl.itemsPerPageLabel = 'Items per page:';
   }
@@ -90,16 +93,16 @@ export class DashboardComponent implements OnInit, AfterViewInit {
       console.log('AddressMap: ', this.addressMap);
     });
   }
-  public getParentByIin(iin: string): void {
-    this.parentService.getByUsername(iin).subscribe(
-      (response: Parent) => {
-        this.parentCurrent = response;
-        console.log('parentCurrent: ', this.parentCurrent);
-      }, (error: HttpErrorResponse) => {
-        console.log(error.message);
-      }
-    );
-  }
+  // public getParentByIin(iin: string): void {
+  //   this.parentService.getByUsername(iin).subscribe(
+  //     (response: Parent) => {
+  //       this.parentCurrent = response;
+  //       console.log('parentCurrent: ', this.parentCurrent);
+  //     }, (error: HttpErrorResponse) => {
+  //       console.log(error.message);
+  //     }
+  //   );
+  // }
   // tslint:disable-next-line:typedef
   sideBarToggler() {
     this.sideBarOpen = !this.sideBarOpen;

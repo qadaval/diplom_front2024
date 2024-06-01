@@ -104,18 +104,19 @@
             <div class="info-item"><strong>Дата рождения:</strong> {{ parentCurrent?.dateOfBirth | date: 'dd.MM.yyyy' }}</div>
             <div class="info-item"><strong>Гражданство:</strong> {{ parentCurrent?.citizenship }}</div>
             <div class="info-item"><strong>Пол:</strong> {{ parentCurrent?.gender }}</div>
-<!--            <div class="info-item"><strong>Электронная почта:</strong> 123@mail.ru</div>-->
             <div class="info-item"><strong>Телефон:</strong> {{ parentCurrent?.phoneNumber }}</div>
 
             <h3>Мои дети</h3>
             <hr>
-            <div class="info-item"><strong>Наименование организации:</strong> Коммунальное государственное учреждение "Общеобразовательная школа № 11" отдела образования города Шахтинск управления образования Карагандинской области</div>
-            <div class="info-item"><strong>Должность:</strong> учитель начальных классов</div>
-            <div class="info-item"><strong>Срок трудового договора:</strong> неопределенный</div>
-            <div class="info-item"><strong>Сотрудник:</strong> штатный</div>
-            <div class="info-item"><strong>Основной предмет:</strong> начальное обучение</div>
-
-            <h3>Образование</h3>
+            <div *ngIf="parentCurrent?.children?.length; else noChildren">
+              <ul *ngFor="let child of parentCurrent?.children">
+                <li>{{ child.surname }} {{ child.name }} {{ child.f_name }}</li>
+              </ul>
+            </div>
+            <ng-template #noChildren>
+              <p style="font-weight: bold">У вас ни один ребенок не <a class="button" routerLink="/child-register">зарегистрирован!</a></p>
+            </ng-template>
+      <h3>Образование</h3>
             <hr>
             <div class="info-item"><strong>Академическая степень:</strong> магистр</div>
             <div class="info-item"><strong>Образование:</strong> Послевузовское образование (магистр, доктор PhD)</div>

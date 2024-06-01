@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Parent } from '../model/parent';
 import { AuthenticationService } from '../service/auth.service';
 import { CityService } from '../service/city.service';
@@ -29,12 +29,10 @@ export class RegisterComponent implements OnDestroy, OnInit {
   signupForm: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string;
   error = '';
 
   constructor(
     private authService: AuthenticationService,
-    private route: ActivatedRoute,
     private router: Router,
     private formBuilder: FormBuilder,
     private cityService: CityService
