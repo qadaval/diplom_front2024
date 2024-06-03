@@ -7,6 +7,8 @@ import {AuthGuard} from './auth.guard';
 import {SidenavComponent} from './sidenav/sidenav.component';
 import {RegisterComponent} from './register/register.component';
 import {ChildRegistrationComponent} from './child-registration/child-registration.component';
+import {EnrollComponent} from './enroll/enroll.component';
+import {HelpComponent} from './help/help.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'dashboard', canActivate: [AuthGuard], component: DashboardComponent },
   {path: 'sidenav', canActivate: [AuthGuard], component: SidenavComponent},
   {path: 'child-register', canActivate: [AuthGuard], component: ChildRegistrationComponent},
+  {path: 'enroll/:id', canActivate: [AuthGuard], component: EnrollComponent},
+  {path: 'help', canActivate: [AuthGuard], component: HelpComponent},
   {path: 'register', component: RegisterComponent},
   { path: 'login', component: LoginComponent }
 ];

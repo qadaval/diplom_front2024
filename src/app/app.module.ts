@@ -30,6 +30,8 @@ import { AddressService } from './service/address.service';
 import { RegisterComponent } from './register/register.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ChildRegistrationComponent } from './child-registration/child-registration.component';
+import { EnrollComponent } from './enroll/enroll.component';
+import { HelpComponent } from './help/help.component';
 
 // @ts-ignore
 @NgModule({
@@ -42,6 +44,8 @@ import { ChildRegistrationComponent } from './child-registration/child-registrat
     LoginComponent,
     RegisterComponent,
     ChildRegistrationComponent,
+    EnrollComponent,
+    HelpComponent,
   ],
     imports: [
         BrowserModule,

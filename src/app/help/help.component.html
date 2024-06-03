@@ -1,0 +1,84 @@
+<mat-drawer-container>
+  <mat-drawer mode="side" [opened]="sideBarOpen">
+    <app-sidenav></app-sidenav>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
+    <div class="container-fluid page">
+      <div class="d-flex page__box p-3 mt-2">Помощь</div>
+        <div class="page__content shadow p-3 position-relative">
+          <!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Контакты и FAQ</title>
+            <style>
+              #contacts {
+                background-color: #e0fbfc;
+                padding: 20px;
+                margin-bottom: 20px;
+                border-radius: 10px;
+              }
+
+              #faq {
+                padding: 20px;
+                margin-bottom: 20px;
+                border-radius: 10px;
+                border: 1px solid #ccc;
+              }
+
+              .faq-item {
+                margin-bottom: 20px;
+              }
+            </style>
+          </head>
+          <body>
+          <header>
+            <h1>Контакты и FAQ</h1>
+          </header>
+
+          <main>
+            <section id="contacts">
+              <h2>Контакты</h2>
+              <p>Мы всегда рады помочь вам и ответить на ваши вопросы. Ниже приведены наши контактные данные:</p>
+              <ul>
+                <li><strong>Телефон:</strong> +7 (776) 151-79-24</li>
+                <li><strong>Электронная почта:</strong> balabaqsha@gmail.com</li>
+                <li><strong>Адрес:</strong> г. Алматы, ул. Манаса, дом №34/1</li>
+              </ul>
+            </section>
+
+            <section id="faq">
+              <h2>Часто задаваемые вопросы (FAQ)</h2>
+              <hr>
+              <div class="faq-item">
+                <h3>Как подать заявку на постановку ребенка в очередь в дошкольное учреждение?</h3>
+                <p>Вы можете подать заявку на постановку ребенка на сайте, заполнив соответствующую форму, либо обратившись к нам по контактным данным.</p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Как узнать о состоянии очереди в дошкольное учреждение?</h3>
+                <p>Информацию о состоянии очереди вы можете узнать, связавшись с нашими специалистами по контактным данным.</p>
+              </div>
+
+              <div class="faq-item">
+                <h3>Какие документы необходимо предоставить для постановки ребенка на очередь?</h3>
+                <p>Для постановки ребенка на очередь в дошкольное учреждение необходимо предоставить копии свидетельства о рождении ребенка, паспортов родителей и другие документы, уточненные при подаче заявки.</p>
+              </div>
+
+            </section>
+          </main>
+
+          <footer>
+            <p>&copy; 2024 BALABAQSHA</p>
+          </footer>
+          </body>
+          </html>
+
+
+        </div>
+    </div>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

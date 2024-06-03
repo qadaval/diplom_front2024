@@ -1,0 +1,79 @@
+<mat-drawer-container>
+  <mat-drawer mode="side" [opened]="sideBarOpen">
+    <!-- <mat-drawer mode="side" opened="true"> -->
+    <app-sidenav></app-sidenav>
+  </mat-drawer>
+  <mat-drawer-content>
+    <app-header (toggleSidebarForMe)="sideBarToggler()"></app-header>
+      <div class="container-fluid page">
+        <div class="d-flex page__box p-3 mt-2">Записаться</div>
+        <div class="page__content shadow p-3 position-relative">
+          <div class="position-absolute">
+            <h2>Данные детского сада</h2>
+            <hr>
+            <div class="info-item"><strong>ID:</strong> {{daycare?.id}} </div>
+            <div class="info-item"><strong>Наименование организации:</strong> {{daycare?.name}} </div>
+            <div class="info-item"><strong>БИН:</strong> {{ daycare?.bin }}</div>
+            <div class="info-item"><strong>Физический адрес:</strong> {{ getAddressString(daycare?.addressId) }}</div>
+            <div class="info-item"><strong>Вмещаемость:</strong> {{ daycare?.capacity }}</div>
+            <div class="info-item"><strong>Кол-во свободных мест:</strong> {{ daycare?.emptyPlaces }}</div>
+            <hr>
+            <h2>Выберите ребенка</h2>
+            <form [formGroup]="enrollForm" (ngSubmit)="onSubmit()">
+              <div formArrayName="children">
+                <div *ngIf="!areAllChildrenRegistered(); else allChildrenRegistered">
+                  <div *ngFor="let child of parentCurrent?.children; let i = index">
+                    <input *ngIf="!isChildInRequests(child?.id)" class="checkbox-custom" type="checkbox" [formControlName]="i" (change)="onCheckboxChange($event, i)"/> {{ child.name }}
+                  </div>
+                </div>
+                <ng-template #allChildrenRegistered>
+                  <p>У вас на всех детей поданы заявки!</p>
+                </ng-template>
+              </div>
+              <button type="submit" [disabled]="!enrollForm.valid">Подать заявку</button>
+            </form>
+
+            <img src="assets/daycare.jpeg" alt="Daycare Image" class="daycare-image">
+          </div>
+
+          <style>
+            .position-absolute {
+              position: relative; /* Ensure the container is positioned relative for absolute positioning of the image */
+              padding-right: 300px; /* Adjust based on image width */
+            }
+
+            .daycare-image {
+              position: absolute;
+              right: 10px;
+              top: 50%;
+              transform: translateY(-50%);
+              max-width: 50%;
+              height: 350px;
+              margin-right: -450px;
+              border-radius: 10%;
+              border-color: #0f172a;
+              border-style: groove;
+              border-width: thick;
+            }
+
+            .info-item {
+              font-size: 25px;
+            }
+
+            /* Увеличиваем размер чекбоксов */
+            .checkbox-custom {
+              transform: scale(2); /* Увеличиваем размер чекбоксов в 1.5 раза */
+            }
+
+            /* Стилизуем чекбоксы */
+            .checkbox-custom + label {
+              font-size: 16px; /* Устанавливаем размер шрифта для текста рядом с чекбоксом */
+              vertical-align: middle; /* Выравниваем чекбокс и текст по вертикали */
+            }
+
+          </style>
+        </div>
+      </div>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

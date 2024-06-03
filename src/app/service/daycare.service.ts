@@ -16,7 +16,7 @@ export class DaycareService {
     return this.http.get<Daycare[]>(`${this.url}/daycare/all`);
   }
 
-  public getDaycare(id: number): Observable<Daycare> {
+  public getDaycare(id: string): Observable<Daycare> {
     return this.http.get<Daycare>(`${this.url}/daycare/find/${id}`);
   }
 
