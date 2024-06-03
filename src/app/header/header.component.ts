@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit {
   currentUser: Parent;
   parentCurrent: Parent;
   city: City;
+  isAdmin = false;
   constructor(
     private router: Router,
     private authService: AuthenticationService,
@@ -33,6 +34,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.getParentByIin(this.currentUser.iin);
+    const currentUser = this.authService.currentUserValue;
+    this.isAdmin = currentUser && currentUser.roles.some(role => role.name === 'ROLE_ADMIN');
   }
 
   public getParentByIin(iin: string): void {

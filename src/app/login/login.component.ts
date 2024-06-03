@@ -63,7 +63,17 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           this.loading = false;
-          this.router.navigate([this.returnUrl]);
+          console.log('tekseris: ', data.roles);
+          const isAdmin = data.roles.some(role => role.name === 'ROLE_ADMIN');
+          if (isAdmin) {
+            console.log('KORIP TURMYN');
+            console.log('role: ', data.roles[0].name);
+            this.router.navigate(['/admin']);
+          } else {
+            // console.log('role: ', data.roles[0].name);
+            console.log('KORIP TURMYN userrr');
+            this.router.navigate([this.returnUrl]);
+          }
         },
         error => {
           console.log(error); // check if the error was returned
@@ -72,6 +82,7 @@ export class LoginComponent implements OnInit {
         }
       );
   }
+
 
   // tslint:disable-next-line:typedef
   signInWithKey() {

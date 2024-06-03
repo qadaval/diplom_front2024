@@ -9,9 +9,12 @@ import {RegisterComponent} from './register/register.component';
 import {ChildRegistrationComponent} from './child-registration/child-registration.component';
 import {EnrollComponent} from './enroll/enroll.component';
 import {HelpComponent} from './help/help.component';
+import {AdminComponent} from './admin/admin.component';
+import {AdminGuard} from './admin.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard, AuthGuard] },
   { path: '', canActivate: [AuthGuard], component: HomeComponent},
   { path: 'home', canActivate: [AuthGuard], component: HomeComponent },
   { path: 'dashboard', canActivate: [AuthGuard], component: DashboardComponent },

@@ -1,4 +1,5 @@
 import {Child} from './child';
+import {Role} from './role';
 
 export interface Parent {
   id?: number;
@@ -14,4 +15,5 @@ export interface Parent {
   phoneNumber?: string;
   children?: Child[];
   token?: string;
+  roles?: Role[];
 }

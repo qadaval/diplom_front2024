@@ -4,6 +4,7 @@ import {BehaviorSubject, Observable, throwError} from 'rxjs';
 import {catchError, map} from 'rxjs/operators';
 import {environment} from '../../environments/environment';
 import {Parent} from '../model/parent';
+import {Router} from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
@@ -11,7 +12,10 @@ export class AuthenticationService {
   readonly currentUserSubject: BehaviorSubject<Parent>;
   currentUser: Observable<Parent>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {
     // @ts-ignore
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
@@ -28,9 +32,24 @@ export class AuthenticationService {
         map((res: HttpResponse<string>) => {
           if (res.status === 200) {
             const token = res.body || '';
-            const parent: Parent = { iin, token }; // Создаем объект User с полем token
+            const payload = JSON.parse(atob(token.split('.')[1]));
+            const roles = payload.roles || [];
+            const parent: Parent = { iin, token, roles };
             localStorage.setItem('currentUser', JSON.stringify(parent));
             this.currentUserSubject.next(parent);
+            console.log('User: ', parent);
+
+            if (roles.some(role => role.name === 'ROLE_ADMIN')) {
+              console.log('User is an admin');
+              this.router.navigate(['/admin']);
+            } else {
+              console.log('User is not an admin');
+              this.router.navigate(['/home']);
+            }
+
+
+
+
             return parent;
           } else {
             throw new Error('Login failed');
@@ -42,6 +61,7 @@ export class AuthenticationService {
         })
       );
   }
+
 
   register(data: Parent): Observable<Parent> {
     return this.http.post(`${environment.url}/register`, data, { observe: 'response', responseType: 'text' })

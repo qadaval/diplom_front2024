@@ -32,6 +32,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ChildRegistrationComponent } from './child-registration/child-registration.component';
 import { EnrollComponent } from './enroll/enroll.component';
 import { HelpComponent } from './help/help.component';
+import { AdminComponent } from './admin/admin.component';
+import { ApproveComponent } from './admin/approve/approve.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 // @ts-ignore
 @NgModule({
@@ -46,6 +49,8 @@ import { HelpComponent } from './help/help.component';
     ChildRegistrationComponent,
     EnrollComponent,
     HelpComponent,
+    AdminComponent,
+    ApproveComponent,
   ],
     imports: [
         BrowserModule,
@@ -67,7 +72,8 @@ import { HelpComponent } from './help/help.component';
         MatProgressSpinnerModule,
         MatTableModule,
         FormsModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        MatDialogModule
     ],
   providers: [
     AuthenticationService,

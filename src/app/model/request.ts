@@ -3,5 +3,6 @@ export interface Request {
   dateOfRequest?: Date;
   parentId?: number;
   childId?: number;
-  isApproved?: boolean;
+  daycareId?: string;
+  approved?: boolean;
 }

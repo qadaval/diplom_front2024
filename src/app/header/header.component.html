@@ -6,10 +6,12 @@
       </button>
     </div>
     <div class="ml-auto d-flex align-items-center">
-      <div class="mr-3 d-flex align-items-center">
-        <mat-icon>location_on</mat-icon>
-        г.{{ city?.name }}
-      </div>
+      <ng-container *ngIf="!isAdmin">
+        <div class="mr-3 d-flex align-items-center">
+          <mat-icon>location_on</mat-icon>
+          г.{{ city?.name }}
+        </div>
+      </ng-container>
       <div class="d-flex align-items-center">
         <button
           mat-button

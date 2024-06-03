@@ -161,7 +161,8 @@ export class EnrollComponent implements OnInit {
       dateOfRequest: new Date(),
       parentId: this.parentCurrent?.id,
       childId: selectedChildId,
-      isApproved: false
+      daycareId: this.daycareId,
+      approved: false
     };
     console.log('Selected child ID:', selectedChildId);
     this.requestService.addRequest(data).subscribe(

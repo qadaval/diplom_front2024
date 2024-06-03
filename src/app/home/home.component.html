@@ -72,29 +72,10 @@
           </style>
         </head>
         <body>
-<!--        <div class="header">-->
-<!--          <h1>BALABAQSHA</h1>-->
-<!--        </div>-->
-<!--        <div class="nav">-->
-<!--          <a href="#">Мои данные</a>-->
-<!--          <a href="#">Список детских садов</a>-->
-<!--          <a href="#">Модули и услуги</a>-->
-<!--          <a href="#">Центр помощи</a>-->
-<!--        </div>-->
         <div class="profile">
           <div class="sidebar">
             <img src="assets/profile.png" alt="User Image">
             <h3>{{ parentCurrent?.surname }} {{ parentCurrent?.name }} {{ parentCurrent?.f_name }}</h3>
-<!--            <p>Удостоверение личности</p>-->
-<!--            <p>Адресные сведения</p>-->
-<!--            <nav>-->
-<!--              <a href="#">Об о мне</a>-->
-<!--              <a href="#">Образование</a>-->
-<!--              <a href="#">Здравоохранение</a>-->
-<!--              <a href="#">Опыт работы</a>-->
-<!--              <a href="#">Награды</a>-->
-<!--              <a href="#">Наставничество</a>-->
-<!--            </nav>-->
           </div>
           <div class="main">
             <h2>Мои данные</h2>
@@ -109,7 +90,7 @@
             <h3>Мои дети</h3>
             <hr>
             <div *ngIf="parentCurrent?.children?.length; else noChildren">
-              <ul *ngFor="let child of parentCurrent?.children">
+              <ul [ngStyle]="{ 'list-style-type': 'square' }" *ngFor="let child of parentCurrent?.children">
                 <li>{{ child.surname }} {{ child.name }} {{ child.f_name }}</li>
               </ul>
             </div>
@@ -122,11 +103,36 @@
             <div class="info-item"><strong>Образование:</strong> Послевузовское образование (магистр, доктор PhD)</div>
           </div>
         </div>
-<!--        <div class="footer">-->
-<!--          <p>ПОСТАНОВКА В ОЧЕРЕДЬ ДЕТЕЙ</p>-->
-<!--          <p>Телефон: +7 (705) 762 66 11</p>-->
-<!--          <p>Электронная почта: balabaqsha_support@gmail.com</p>-->
-<!--        </div>-->
+        <div class="profile">
+          <div class="main" style="background-color: #1e293b; color: white">
+            <h3>Статус Заявок</h3>
+            <div class="info-item"><strong>Подано заявок: </strong>{{ requestNumber() }}</div>
+            <div class="info-item">
+              <div *ngIf="requestNumber() > 0; else noChildrenRegistered">
+                <ul [ngStyle]="{ 'list-style-type': 'decimal' }">
+                  <li *ngFor="let req of filterRequestAll">
+                    <div class="info-item"><strong>Наименование организации: </strong>{{ daycareAll[req.daycareId - 1]?.name }}</div>
+                    <div class="info-item"><strong>Ребенок: </strong>{{ getChildDataById(req.childId) }}</div>
+                    <div class="info-item"><strong>Дата заявки: </strong>{{ req.dateOfRequest | date: 'dd.MM.yyyy' }}</div>
+                    <div class="info-item">
+                      <strong>Состояние заявки: </strong>
+                      <span *ngIf="req?.approved === false" style="color: white">На рассмотрении</span>
+                      <span *ngIf="req?.approved === true" style="color: white">Одобрено</span>
+                      <span *ngIf="req?.approved === undefined" style="color: white">Неопределено</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <ng-template #noChildrenRegistered>
+                <p>Вы еще не подали заявку на детские сады! Нажмите на
+                  <a class="button" routerLink="/dashboard">Список детских садов</a>
+                  и подайте заявку!
+                </p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
         </body>
         </html>
       </div>

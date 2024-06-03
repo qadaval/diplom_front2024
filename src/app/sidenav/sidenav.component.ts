@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from '../service/auth.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
 
-  constructor() { }
+  isAdmin = false;
+
+  constructor(private authService: AuthenticationService) {}
 
   ngOnInit(): void {
+    const currentUser = this.authService.currentUserValue;
+    this.isAdmin = currentUser && currentUser.roles.some(role => role.name === 'ROLE_ADMIN');
   }
 
 }

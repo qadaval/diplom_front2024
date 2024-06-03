@@ -5,19 +5,27 @@
   <mat-divider></mat-divider>
   <h2 class="ml-4" style="font-family: 'Trebuchet MS',sans-serif">BALABAQSHA</h2>
 
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/home">
-    <mat-icon>
-      home
-    </mat-icon>
-    Профиль
-  </a>
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
-    <mat-icon>dashboard</mat-icon> Список детских садов
-  </a>
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/child-register">
-    <mat-icon>edit</mat-icon> Регистрация ребенка
-  </a>
-<!--  <a mat-list-item> <mat-icon>contacts</mat-icon> Link 4 </a>-->
-  <a mat-list-item routerLinkActive="list-item-active" routerLink="/help">
-    <mat-icon>help</mat-icon> Помощь </a>
+  <ng-container *ngIf="!isAdmin">
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/home">
+      <mat-icon>
+        home
+      </mat-icon>
+      Профиль
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/dashboard">
+      <mat-icon>dashboard</mat-icon> Список детских садов
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/child-register">
+      <mat-icon>edit</mat-icon> Регистрация ребенка
+    </a>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/help">
+      <mat-icon>help</mat-icon> Помощь </a>
+  </ng-container>
+
+  <ng-container *ngIf="isAdmin">
+    <mat-divider></mat-divider>
+    <a mat-list-item routerLinkActive="list-item-active" routerLink="/admin">
+      <mat-icon>admin_panel_settings</mat-icon> Админ Панель
+    </a>
+  </ng-container>
 </mat-nav-list>
