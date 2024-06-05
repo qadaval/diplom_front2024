@@ -17,4 +17,7 @@ export class ParentService {
   public getByUsername(iin: string): Observable<Parent> {
     return this.http.get<Parent>(`${this.url}/parent/get/${iin}`);
   }
+  public getParent(id: number): Observable<Parent> {
+    return this.http.get<Parent>(`${this.url}/parent/find/${id}`);
+  }
 }

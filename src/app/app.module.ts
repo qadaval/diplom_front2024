@@ -35,6 +35,7 @@ import { HelpComponent } from './help/help.component';
 import { AdminComponent } from './admin/admin.component';
 import { ApproveComponent } from './admin/approve/approve.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatSelectModule} from '@angular/material/select';
 
 // @ts-ignore
 @NgModule({
@@ -52,29 +53,30 @@ import {MatDialogModule} from '@angular/material/dialog';
     AdminComponent,
     ApproveComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        // * MATERIAL IMPORTS
-        MatSidenavModule,
-        MatToolbarModule,
-        MatMenuModule,
-        MatIconModule,
-        MatDividerModule,
-        MatListModule,
-        MatButtonModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatCheckboxModule,
-        HttpClientModule,
-        MatPaginatorModule,
-        MatProgressSpinnerModule,
-        MatTableModule,
-        FormsModule,
-        MatDatepickerModule,
-        MatDialogModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    // * MATERIAL IMPORTS
+    MatSidenavModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatIconModule,
+    MatDividerModule,
+    MatListModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatCheckboxModule,
+    HttpClientModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule,
+    MatTableModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatSelectModule
+  ],
   providers: [
     AuthenticationService,
     DaycareService,

@@ -17,4 +17,7 @@ export class ChildService {
   public addChild(child: Child): Observable<Child> {
     return this.http.post<Child>(`${this.url}/child/add`, child);
   }
+  public getChild(id: number): Observable<Child> {
+    return this.http.get<Child>(`${this.url}/child/find/${id}`);
+  }
 }

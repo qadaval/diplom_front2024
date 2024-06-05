@@ -17,4 +17,7 @@ export class RequestService {
   public addRequest(request: Request): Observable<Request> {
     return this.http.post<Request>(`${this.url}/request/add`, request);
   }
+  public updateRequest(request: Request): Observable<Request> {
+    return this.http.put<Request>(`${this.url}/request/update`, request);
+  }
 }

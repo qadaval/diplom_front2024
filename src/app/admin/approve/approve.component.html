@@ -1,13 +1,24 @@
-<!--&lt;!&ndash; request-details-dialog.component.html &ndash;&gt;-->
-<!--<h1 mat-dialog-title>Details</h1>-->
-<!--<div mat-dialog-content>-->
-<!--  <p><strong>ID: </strong>{{ data.id }}</p>-->
-<!--  <p><strong>Date of Request: </strong>{{ data.dateOfRequest }}</p>-->
-<!--  <p><strong>Parent ID: </strong>{{ data.parentId }}</p>-->
-<!--  <p><strong>Child ID: </strong>{{ data.childId }}</p>-->
-<!--  <p><strong>Daycare ID: </strong>{{ data.daycareId }}</p>-->
-<!--  <p><strong>Approved: </strong>{{ data.approved }}</p>-->
-<!--</div>-->
-<!--<div mat-dialog-actions>-->
-  <button mat-button (click)="onNoClick()">Close</button>
-<!--</div>-->
+<!-- request-details-dialog.component.html -->
+<h1 mat-dialog-title>Детали заявки</h1>
+<div mat-dialog-content>
+  <p><strong>ID: </strong>{{ data.id }}</p>
+  <p><strong>Дата подписание заявки: </strong>{{ data.dateOfRequest | date: "dd.MM.yyyy" }}</p>
+  <p><strong>Родитель: </strong>{{ parent?.surname }} {{ parent?.name }} {{ parent?.f_name }}</p>
+  <p><strong>ИИН родителя: </strong>{{ parent?.iin }}</p>
+  <p><strong>Ребенок: </strong>{{ child?.surname }} {{ child?.name }} {{ child?.f_name }}</p>
+  <p><strong>ИИН ребенка: </strong>{{ child?.iin }}</p>
+  <p><strong>(БИН)Детский сад: </strong>({{daycare?.bin}}){{ daycare?.name}}</p>
+  <p><strong>Физический адрес детского сада: </strong>{{address?.region}}, г. {{city?.name}}, {{address?.district}} район, ул. {{address?.street}}, дом {{address?.house}}</p>
+  <p><strong>Статус заявки: </strong><span>{{ data.approved }}</span></p>
+</div>
+<form>
+  <h3 mat-dialog-title>Одобрить заявку на детский сад:</h3>
+  <select [(ngModel)]="data.approved" name="approved" class="custom-select">
+    <option [value]="false">На рассмотрении</option>
+    <option [value]="true">Одобрено</option>
+  </select>
+  <button mat-button class="ml-3 btn-primary" type="button" (click)="approveRequest()">Ввод</button>
+</form>
+<div mat-dialog-actions class="mt-55">
+  <button mat-button class="btn-danger" (click)="onNoClick()">Закрыть</button>
+</div>
